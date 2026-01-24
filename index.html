@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommy Gazu | Official Lucky Draw</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script async src="https://tally.so/widgets/embed.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #1a73e8;
+            --accent-gold: #b45309;
+            --bg-white: #ffffff;
+            --bg-soft: #fbfcfe;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; background-color: var(--bg-white); color: var(--text-dark); line-height: 1.5; }
+
+        /* Language Toggle */
+        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+        #langBtn {
+            background: white; border: 1px solid var(--border); padding: 8px 18px; border-radius: 50px;
+            font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex; align-items: center; gap: 8px; font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        header { padding: 80px 20px 20px; text-align: center; }
+        .brand-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; text-transform: uppercase; }
+
+        .hero { display: flex; flex-direction: column; align-items: center; padding: 20px 20px 60px; }
+        .vector-container { height: 280px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
+        .vector-art { max-width: 300px; height: auto; opacity: 0; transform: translateY(30px); animation: slideUp 0.8s ease-out forwards; }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Multi-Click Button */
+        .apply-btn {
+            background: var(--primary-blue); color: white; padding: 22px 55px; font-size: 1.25rem;
+            font-weight: 700; border-radius: 100px; border: none; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 12px;
+            box-shadow: 0 10px 25px rgba(26, 115, 232, 0.3); transition: 0.3s;
+        }
+        .apply-btn.step-two { background: #10b981; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+        /* Prize Pool Style */
+        .prize-section { padding: 60px 20px; text-align: center; }
+        .prize-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; max-width: 1000px; margin: 40px auto 0; }
+        .prize-card { background: white; border: 1px solid var(--border); padding: 25px; border-radius: 20px; transition: 0.3s; }
+        .prize-card span { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; margin-bottom: 8px; }
+        .prize-card h3 { font-size: 1.6rem; color: var(--accent-gold); }
+
+        .info-section { background-color: var(--bg-soft); padding: 80px 20px; border-top: 1px solid var(--border); }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* Payment Grid Style */
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 20px; margin-top: 40px; text-align: center; }
+        .payment-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .payment-item img { height: 35px; width: auto; filter: grayscale(100%); transition: 0.3s; }
+        .payment-item i { font-size: 2rem; color: var(--text-light); transition: 0.3s; }
+        .payment-name { font-size: 11px; font-weight: 800; color: var(--text-light); text-transform: uppercase; }
+
+        footer { padding: 50px; text-align: center; color: var(--text-light); font-size: 0.85rem; background: #f8fafc; }
+        .bn-font { font-family: 'Hind Siliguri', sans-serif !important; }
+
+        @media (max-width: 600px) {
+            .brand-title { font-size: 1.8rem; }
+            .prize-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <button id="langBtn" onclick="toggleLanguage()">
+            <i class="fas fa-language"></i> <span id="btnText">বাংলা</span>
+        </button>
+    </div>
+
+    <header>
+        <h1 class="brand-title">Tommy Gazu</h1>
+    </header>
+
+    <section class="hero">
+        <div class="vector-container">
+            <img src="https://gazu.vercel.app/art.png" alt="Tommy Gazu Art" class="vector-art">
+        </div>
+        
+        <button onclick="handleLogic()" class="apply-btn" id="mainCTA">
+            Apply To Win Now <i class="fas fa-arrow-right"></i>
+        </button>
+        
+        <p style="margin-top: 20px; color: var(--text-light);" id="heroSub">Free entry for all daily visitors</p>
+    </section>
+
+    <section class="prize-section">
+        <div class="container">
+            <h2 id="prizeHeader">Today's Prize List</h2>
+            <div class="prize-grid">
+                <div class="prize-card"><span>1st Prize</span><h3>iPhone</h3></div>
+                <div class="prize-card"><span>Cash Reward</span><h3>$100</h3></div>
+                <div class="prize-card"><span>Cash Reward</span><h3>$50</h3></div>
+                <div class="prize-card"><span>Lucky Winner</span><h3>$1</h3></div>
+                <div class="prize-card"><span>Micro Reward</span><h3>$0.10</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div style="text-align: center;">
+                <h2 id="processTitle">Our Selection Process</h2>
+                <p id="processSub" style="color: var(--text-light);">Transparent, simple, and fair for everyone.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div style="background: white; padding: 35px; border-radius: 25px; border: 1px solid var(--border);">
+                    <div style="font-size: 1.5rem; color: var(--primary-blue); margin-bottom: 15px;"><i class="fas fa-random"></i></div>
+                    <h3 id="howTitle">How It Works</h3>
+                    <p id="howText" style="color: var(--text-light);">We give rewards to one random visitor per day. If you don't get a reward today, you can try again the next day or next time.</p>
+                </div>
+
+                <div style="background: white; padding: 35px; border-radius: 25px; border: 1px solid var(--border);">
+                    <div style="font-size: 1.5rem; color: var(--primary-blue); margin-bottom: 15px;"><i class="fab fa-telegram-plane"></i></div>
+                    <h3 id="winTitle">When You Win</h3>
+                    <p id="winText" style="color: var(--text-light);">When you apply, you give your Telegram number. If you are selected, we will contact you directly on Telegram and give your prize.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 80px 20px; text-align: center;">
+        <h2 id="paymentTitle">Available Payout Methods</h2>
+        <div class="container">
+            <div class="payment-grid">
+                <div class="payment-item">
+                    <img src="https://freelogopng.com/images/all_img/1656235223bkash-logo.png" alt="bKash">
+                    <span class="payment-name">bKash</span>
+                </div>
+                <div class="payment-item">
+                    <img src="https://freelogopng.com/images/all_img/1679248787Nagad-Logo.png" alt="Nagad">
+                    <span class="payment-name">Nagad</span>
+                </div>
+                <div class="payment-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span class="payment-name" id="rechargeName">Mobile Recharge</span>
+                </div>
+                <div class="payment-item"><i class="fab fa-cc-paypal"></i><span class="payment-name">PayPal</span></div>
+                <div class="payment-item"><i class="fab fa-bitcoin"></i><span class="payment-name">Bitcoin</span></div>
+                <div class="payment-item"><i class="fas fa-university"></i><span class="payment-name">Bank</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footerText">
+        &copy; 2026 Tommy Gazu. Selection is randomized daily. Winners are contacted strictly via Telegram.
+    </footer>
+
+    <script>
+        let clickCount = 0;
+        let currentLang = 'en';
+
+        function handleLogic() {
+            clickCount++;
+            if (clickCount === 1) {
+                // Click 1: UPDATED ADSTERRA LINK
+                window.open("https://braverybreezebinding.com/wva5msx8?key=4ab04b2ff95e4c0fd5e8d5ab8e02d149", "_blank");
+                const btn = document.getElementById('mainCTA');
+                btn.innerHTML = (currentLang === 'en') ? 'Confirm Entry <i class="fas fa-check-circle"></i>' : 'এন্ট্রি নিশ্চিত করুন <i class="fas fa-check-circle"></i>';
+                btn.classList.add('step-two');
+            } else if (clickCount >= 2) {
+                // Click 2: Tally Popup
+                Tally.openPopup('WO8oRL', { emoji: { text: '👋', animation: 'wave' } });
+                
+                // Reset after form opens
+                setTimeout(() => {
+                    clickCount = 0;
+                    const btn = document.getElementById('mainCTA');
+                    btn.classList.remove('step-two');
+                    btn.innerHTML = (currentLang === 'en') ? 'Apply To Win Now <i class="fas fa-arrow-right"></i>' : 'এখনই আবেদন করুন <i class="fas fa-arrow-right"></i>';
+                }, 4000);
+            }
+        }
+
+        const translations = {
+            bn: {
+                btn: "English", cta: "এখনই আবেদন করুন", heroSub: "প্রতিদিনের ভিজিটরদের জন্য বিনামূল্যে এন্ট্রি",
+                prizeHeader: "আজকের পুরস্কার তালিকা", processTitle: "আমাদের নির্বাচন প্রক্রিয়া",
+                processSub: "সবার জন্য স্বচ্ছ, সহজ এবং নির্ভুল।", howTitle: "এটি যেভাবে কাজ করে",
+                howText: "আমরা প্রতিদিন একজন ভাগ্যবান ভিজিটরকে পুরস্কার দেই। আপনি আজ পুরস্কার না পেলে চিন্তার কিছু নেই—পরের দিন আবার চেষ্টা করুন!",
+                winTitle: "আপনি যখন জিতবেন", winText: "আবেদন করার সময় আপনি আপনার টেলিগ্রাম নম্বর দেন। আপনি বিজয়ী হলে আমাদের টিম টেলিগ্রামে সরাসরি আপনার সাথে যোগাযোগ করে পুরস্কার পৌঁছে দেবে।",
+                paymentTitle: "পেমেন্ট গ্রহণের মাধ্যমসমূহ", rechargeName: "মোবাইল রিচার্জ",
+                footer: "© ২০২৬ টমি গাজু। বিজয়ীদের শুধুমাত্র টেলিগ্রামে যোগাযোগ করা হয়।"
+            },
+            en: {
+                btn: "বাংলা", cta: "Apply To Win Now", heroSub: "Free entry for all daily visitors",
+                prizeHeader: "Today's Prize List", processTitle: "Our Selection Process",
+                processSub: "Transparent, simple, and fair for everyone.", howTitle: "How It Works",
+                howText: "We give rewards to one random visitor per day. If you don't get a reward today, you can try again the next day or next time.",
+                winTitle: "When You Win", winText: "When you apply, you give your Telegram number. If you are selected, we will contact you directly on Telegram and give your prize.",
+                paymentTitle: "Available Payout Methods", rechargeName: "Mobile Recharge",
+                footer: "© 2026 Tommy Gazu. Winners are contacted strictly via Telegram."
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = (currentLang === 'en') ? 'bn' : 'en';
+            const d = translations[currentLang];
+            document.getElementById('btnText').innerText = d.btn;
+            if(clickCount === 0) { document.getElementById('mainCTA').innerHTML = d.cta + ' <i class="fas fa-arrow-right"></i>'; }
+            document.getElementById('heroSub').innerText = d.heroSub;
+            document.getElementById('prizeHeader').innerText = d.prizeHeader;
+            document.getElementById('processTitle').innerText = d.processTitle;
+            document.getElementById('processSub').innerText = d.processSub;
+            document.getElementById('howTitle').innerText = d.howTitle;
+            document.getElementById('howText').innerText = d.howText;
+            document.getElementById('winTitle').innerText = d.winTitle;
+            document.getElementById('winText').innerText = d.winText;
+            document.getElementById('paymentTitle').innerText = d.paymentTitle;
+            document.getElementById('rechargeName').innerText = d.rechargeName;
+            document.getElementById('footerText').innerText = d.footer;
+            document.body.classList.toggle('bn-font', currentLang === 'bn');
+        }
+    </script>
+</body>
+</html>
